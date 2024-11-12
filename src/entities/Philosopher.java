@@ -56,6 +56,11 @@ public class Philosopher implements Runnable, Entity{
             isThinking = false;
             isEating = true;
             increaseSatiety();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             return true;
         }
         return false;
@@ -79,6 +84,11 @@ public class Philosopher implements Runnable, Entity{
         left.setBusy(false);
         right.setBusy(false);
         isEating = false;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         return (isThinking = true);
     }
