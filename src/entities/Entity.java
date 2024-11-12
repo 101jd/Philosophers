@@ -1,2 +1,4 @@
-package entities;public interface Entity {
+package entities;
+
+public interface Entity {
 }
