@@ -39,50 +39,72 @@ public class Philosopher implements Runnable, Entity{
         return ++satiety;
     }
 
-    public boolean getLeftFork(){
-        synchronized (left) {
-            return (leftHand = !left.isBusy() ? true : false);
-        }
+    private boolean getLeftFork(){
+            if (!left.isBusy()){
+                left.setBusy(true);
+                leftHand = true;
+                return true;
+            } else return false;
     }
 
-    public boolean getRightFork(){
-        synchronized (right){
-            return (rightHand = !right.isBusy() ? true : false);
-        }
+    private boolean getRightFork(){
+            if (!right.isBusy()){
+                right.setBusy(true);
+                rightHand = true;
+                return true;
+            } else return false;
     }
 
-    public boolean eat(){
-        if (getLeftFork() && getRightFork() && isThinking){
+    private boolean tryGetForks(){
+        if (!left.isBusy() && !right.isBusy()){
+            left.setBusy(true);
+            right.setBusy(true);
+            leftHand = true;
+            rightHand = true;
+            return true;
+        } else return false;
+    }
+
+    private boolean eat(){
+        if (tryGetForks() && isThinking){
+            System.out.println(name + " catched " + left.getId() + " & " + right.getId());
             isThinking = false;
             isEating = true;
             increaseSatiety();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             return true;
+        } else {
+            System.out.println(name + " can't catch forks :( " + left.getId() + left.isBusy() + " " + right.getId() + right.isBusy());
+            return false;
         }
-        return false;
     }
 
     public String eating(){
         if (eat()){
             return this.name + ": I eat hence I exist";
         }
-        return null;
+        return name + " can't eat";
     }
 
     public String thinking(){
         if (think()){
             return this.name + ": I think hence I exist";
         }
-        return null;
+        return name + " can't think";
     }
 
-    public boolean think(){
-        left.setBusy(false);
-        right.setBusy(false);
+    private boolean think(){
+        if (leftHand && rightHand) {
+            left.setBusy(false);
+            right.setBusy(false);
+            leftHand = false;
+            rightHand = false;
+            System.out.println(name + " release " + left.getId() + " & " + right.getId());
+        }
         isEating = false;
         try {
             Thread.sleep(1000);
@@ -95,5 +117,9 @@ public class Philosopher implements Runnable, Entity{
 
     public int getId() {
         return id;
+    }
+
+    public void setRight(Fork right) {
+        this.right = right;
     }
 }

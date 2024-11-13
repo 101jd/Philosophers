@@ -9,6 +9,6 @@ public class PhiloBuilder {
         id = 1;
     }
     public Philosopher buildPhilosopher(String name, Fork left, Fork right){
-        return new Philosopher(this.id++, name, left, right);
+        return new Philosopher(id++, name, left, right);
     }
 }

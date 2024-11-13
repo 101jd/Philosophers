@@ -1,5 +1,6 @@
 import collection.Node;
 import entities.Entity;
+import entities.Fork;
 import entities.Philosopher;
 import entities.Table;
 import entities.builders.PhiloBuilder;
@@ -10,7 +11,7 @@ import java.util.Iterator;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        PhiloBuilder builder = new PhiloBuilder();
+//        PhiloBuilder builder = new PhiloBuilder();
         Table table = new Table();
 
         table.add("Diogen")

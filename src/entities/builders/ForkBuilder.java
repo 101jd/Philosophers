@@ -3,8 +3,11 @@ package entities.builders;
 import entities.Fork;
 
 public class ForkBuilder {
-    private int id = 0;
+    private int id;
+    public ForkBuilder(){
+        id = 1;
+    }
     public Fork build(){
-        return new Fork(id++);
+        return new Fork(this.id++);
     }
 }

@@ -23,4 +23,12 @@ public class Node<T> {
     public Node<T> getNext() {
         return next;
     }
+
+    public void setPrevious(Node<T> previous) {
+        this.previous = previous;
+    }
+
+    public void setNext(Node<T> next) {
+        this.next = next;
+    }
 }
